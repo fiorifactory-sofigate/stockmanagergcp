@@ -1,4 +1,4 @@
-
+steps:
 #build docker container
 - name: 'gcr.io/sandboxsg2/docker'
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/stockmanagergcp', '.']
