@@ -77,7 +77,7 @@ export default function Admin({ children, ...rest }) {
   }, [mainPanel]);
   return (
     <div className={classes.wrapper}>
-      <Sidebar
+      {/* <Sidebar
         routes={routes}
         logoText={"Creative Tim"}
         logo={logo}
@@ -86,13 +86,13 @@ export default function Admin({ children, ...rest }) {
         open={mobileOpen}
         color={color}
         {...rest}
-      />
+      /> */}
       <div className={classes.mainPanel} ref={mainPanel}>
-        <Navbar
+        {/* <Navbar
           routes={routes}
           handleDrawerToggle={handleDrawerToggle}
           {...rest}
-        />
+        /> */}
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (
           <div className={classes.content}>

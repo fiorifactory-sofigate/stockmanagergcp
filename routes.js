@@ -27,6 +27,17 @@ import Language from "@material-ui/icons/Language";
 
 const dashboardRoutes = [
   {
+    path: "/table-list",
+    name: "Stocks",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+
+    layout: "/admin",
+  }
+];
+
+const dashboardRoutes1 = [
+  {
     path: "/dashboard",
     name: "Dashboard",
     rtlName: "لوحة القيادة",
