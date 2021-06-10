@@ -94,7 +94,7 @@ const Knex = require('knex');
  };
 
 
-
+// Functions to interact with db
 
 const getStockById = async (pool, id) => {
   try {
@@ -109,28 +109,36 @@ const getStockById = async (pool, id) => {
 
 
 
-//  const removestock = async (pool, id) => {
-//   try {
-//     return await pool('stockentries').delete({key:'entryid'}).where('entryid',id);
-//   } catch (err) {
-//     throw Error(err);
-//   }
-// };
+ const removestock = async (pool, id) => {
+  try {
+    return await pool('stockentries').delete({key:'entryid'}).where('entryid',id);
+  } catch (err) {
+    throw Error(err);
+  }
+};
 
 
 
-//  const updateStocks = async (pool, stock) => {
-//   delete stock.Apartment; 
-//   try {
-//     //return await pool('stocks').delete(stock);
-//     return await pool('stockentries').update(stock).where('entryid', stock.entryid);
-//   } catch (err) {
-//     throw Error(err);
-//   }
-// };
+ const updateStocks = async (pool, stock) => {
+  delete stock.Apartment; 
+  try {
+    //return await pool('stocks').delete(stock);
+    return await pool('stockentries').update(stock).where('entryid', stock.entryid);
+  } catch (err) {
+    throw Error(err);
+  }
+};
  // Create a Winston logger that streams to Stackdriver Logging.
 
+ const winston = require('winston');
+ const {LoggingWinston} = require('@google-cloud/logging-winston');
+ const loggingWinston = new LoggingWinston();
+ const logger = winston.createLogger({
+   level: 'info',
+   transports: [new winston.transports.Console(), loggingWinston],
+ });
 
+// Handle HTTP method calls
 export default async function handler(req, res) {
   switch (req.method) {
     case 'GET':
@@ -151,18 +159,54 @@ export default async function handler(req, res) {
                       res
                     .status(200)
                     .send(JSON.stringify(builds));
-                   // .end();
+                 
               }catch (err) {
                   console.error(err);
                   
                   res
                     .status(500)
-                    .send('Unable to load page; see logs for more details.');
-                    //.end();
+                    .send('Unable to get product ; see logs for more details.');
+                 
               }
               
       break;
-      
+      case 'PUT':
+      // Update or create data in your database
+      pool = pool || createPool();
+      try {
+          await updateStocks(pool, req.body,id);
+          res.status(203).send(req.body);
+      } catch (err) {
+          logger.error(`Error while attempting to submit vote:${err}`);
+        
+          res
+          .status(500)
+          .send('Unable to add stock see logs for more details.');
+          return;
+      }
+
+      break
+
+      case 'DELETE':
+        pool = pool || createPool();
+       
+        try{
+          const builds = await removestock(pool,id);
+          
+                 res
+               .status(204)
+               .send(JSON.stringify(id));
+               
+        }catch (err) {
+             console.error(err);
+             res
+               .status(500)
+               .send('Unable to delete product stock entry');
+            
+        }
+
+        break
+    
     default:
       res.status(405).send("Method "+ req.method+" not Implemented in this path");
         

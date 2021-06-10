@@ -149,9 +149,6 @@ const addstock = async (pool, stock) => {
    transports: [new winston.transports.Console(), loggingWinston],
  });
 
-
-
-
 export default async function handler(req, res) {
   switch (req.method) {
     case 'GET':
@@ -188,16 +185,14 @@ export default async function handler(req, res) {
                   }
 
            await addstock(pool,req.body);
-           // let eId = getMaxProdId(pool);
-          
             res.status(201).send(req.body);
         } catch (err) {
             logger.error(`Error while attempting create product :${err}`);
      
             res
             .status(500)
-            .send('Unable to add stock see logs for more details.');
-          //  .end();
+            .send('Unable to add product stock. See logs for more details.');
+          
             return;
         }
       break;
