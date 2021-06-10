@@ -174,8 +174,8 @@ export default async function handler(req, res) {
                   
                   res
                     .status(500)
-                    .send('Unable to load page; see logs for more details.')
-                    .end();
+                    .send('Unable to load page; see logs for more details.');
+         //           .end();
               }
               
       break;
@@ -196,8 +196,8 @@ export default async function handler(req, res) {
      
             res
             .status(500)
-            .send('Unable to add stock see logs for more details.')
-            .end();
+            .send('Unable to add stock see logs for more details.');
+          //  .end();
             return;
         }
       break;
