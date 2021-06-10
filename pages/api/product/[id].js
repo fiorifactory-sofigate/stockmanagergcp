@@ -171,8 +171,7 @@ export default async function handler(req, res) {
                     .status(500)
                     .send('Unable to get product ; see logs for more details.');
                  
-              }
-              
+              }  
       break;
       case 'PUT':
       // Update or create data in your database
