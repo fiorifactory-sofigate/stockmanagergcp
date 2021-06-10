@@ -40,7 +40,7 @@ const Knex = require('knex');
       user: 'postgres',//process.env.DB_USER, // e.g. 'my-user'
       password: 'OadLD6lr5ikNyD3L', // e.g. 'my-user-password'
       database: 'postgres', // e.g. 'my-database',
-      host: 'cloudsql/sandboxsg2:europe-west3:buildings'// `${dbSocketPath}/${process.env.CLOUD_SQL_CONNECTION_NAME}`,
+      host: '/cloudsql/sandboxsg2:europe-west3:buildings'// `${dbSocketPath}/${process.env.CLOUD_SQL_CONNECTION_NAME}`,
       
     },
      // ... Specify additional properties here.
