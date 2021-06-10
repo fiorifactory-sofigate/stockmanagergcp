@@ -82,6 +82,7 @@ small {
 h1 {
   font-size: 3em;
   line-height: 1.15em;
+  text-align: start;
 }
 
 h2 {
