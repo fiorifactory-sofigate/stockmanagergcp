@@ -90,7 +90,8 @@ function TableList() {
 const [rows, setRows] = useState([]);
 const [editingCells, setEditingCells] = useState([]);
 
-//const axios = require('axios').default;
+// iitial load of data with loading bar
+
 useEffect(() => {
  progress.start();
             axios.get('/api/products')
@@ -106,9 +107,128 @@ useEffect(() => {
 }, []);
 
 
+// editable table handler fns
+
+
+
+const commitChanges = ({ added, changed, deleted }) => {
+      
+  let changedRows;
+  progress.start();
+  if (added) {
+    debugger;
+      const startingAddedId = rows.length > 0
+          ? Math.max(rows[rows.length - 1].entryid, rows[0].entryid) + 1
+          : 0;
+      changedRows = [
+          ...added.map((row, index) => ({
+              entryid: startingAddedId + index,
+              ...row,
+          })),
+          ...rows,
+      ];
+      debugger;
+      setEditingCells([{ rowId: 0, columnName: columns[0].name }]);
+      axios.post('/api/products',{product:"",description:"",stock:"0"});
+  }
+  if (changed) {
+    
+    
+    
+    for (let index = 0; index < rows.length; index++) {
+      const element = rows[index];
+      
+         let fg = changed[element.entryid] ? { ...element, ...changed[element.entryid]  } : false;
+        if(fg){
+          let dt = fg;
+          const path = dt.link;
+          delete dt.link;
+          
+          const res =  axios.put(path, dt);
+        }
+    }
+
+      changedRows = rows.map(row => (
+        
+        changed[row.entryid] ? { ...row, ...changed[row.entryid] 
+        
+        } : row));
+      
+  }
+  if (deleted) {
+    debugger;
+    
+      const deletedSet = new Set(deleted);
+      changedRows = rows.filter(row => !deletedSet.has(row.entryid));
+    const delRows = rows.filter(row => deletedSet.has(row.entryid));
+      for (let index = 0; index < delRows.length; index++) {
+        const elementD = delRows[index];
+        const res =  axios.delete(elementD.link);
+          
+      }
+     
+  }
+  
+  //setRows(changedRows);
+ 
+  const timer = setTimeout(() => {
+    progress.start();
+          axios.get('/api/products')
+          .then(resp => {
+            
+              setRows(resp.data);
+              progress.finish();
+          })
+          .catch(err => {
+              // Handle Error Here
+              console.error(err);
+              progress.finish();
+          });
+  }, 2000);
+  return () => clearTimeout(timer);
+
+ 
+  
+  
+};
+
+const addEmptyRow = () => commitChanges({ added: [{}] });
+const getRowId = row => row.entryid;
+
+const FocusableCell = ({ onClick, ...restProps }) => (
+<Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
+);
+
+
 
   return (<div>
    <h1>Stock Manager </h1>
+   {/* <Card>
+        <CardBody className="iq-card-body">
+                        <Grid
+                            rows={rows}
+                            columns={columns}
+                            getRowId={getRowId}
+                        >
+                            <EditingState
+                                onCommitChanges={commitChanges}
+                                editingCells={editingCells}
+                                onEditingCellsChange={setEditingCells}
+                                addedRows={[]}
+                                onAddedRowsChange={addEmptyRow}
+                            />
+                            <Table  />
+                            <TableHeaderRow />
+                            <TableInlineCellEditing selectTextOnEditStart />
+                            <TableEditColumn
+                                showAddCommand
+                                showDeleteCommand
+                            />
+                        </Grid>
+
+                       
+                    </CardBody>
+        </Card> */}
   </div>
 
 
