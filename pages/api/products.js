@@ -168,8 +168,8 @@ export default async function handler(req, res) {
                 
                       res
                     .status(200)
-                    .send(JSON.stringify(builds))
-                    .end();
+                    .send(JSON.stringify(builds));
+                   // .end();
               }catch (err) {
                   console.error(err);
                   
