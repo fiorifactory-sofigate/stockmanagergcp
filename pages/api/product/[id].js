@@ -86,7 +86,7 @@ const Knex = require('knex');
    config.createRetryIntervalMillis = 200; // 0.2 seconds
    // [END cloud_sql_postgres_knex_backoff]
  
-   if (true) {
+   if (false) {
      return createTcpPool(config);
    } else {
      return createUnixSocketPool(config);
