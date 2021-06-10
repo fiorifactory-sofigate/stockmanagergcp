@@ -139,10 +139,6 @@ const getStockById = async (pool, id) => {
 
 // Handle HTTP method calls
 export default async function handler(req, res) {
-  const {
-    query: { id, name },
-    method,
-  } = req
 
   switch (req.method) {
     case 'GET':
@@ -174,6 +170,10 @@ export default async function handler(req, res) {
               }  
       break;
       case 'PUT':
+        const {
+          query: { id, name },
+          method,
+      } = req;
       // Update or create data in your database
       pool = pool || createPool();
       try {
@@ -191,6 +191,10 @@ export default async function handler(req, res) {
       break
 
       case 'DELETE':
+        const {
+          query: { id, name },
+          method,
+      } = req;
         pool = pool || createPool();
        
         try{
