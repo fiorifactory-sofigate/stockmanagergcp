@@ -186,23 +186,22 @@ export default async function handler(req, res) {
           return;
       }
 
-      break
+      break;
 
       case 'DELETE':
         pool = pool || createPool();
        
         try{
           const builds = await removestock(pool,id);
-          
-                 res
+              res
                .status(204)
-               .send('Product -'+id+" has deleted successfully");
+               .send(builds);
                
         }catch (err) {
              console.error(err);
              res
                .status(500)
-               .send('Unable to delete product stock entry');
+               .send(JSON.stringify(err));
             
         }
 
