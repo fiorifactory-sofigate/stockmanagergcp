@@ -145,12 +145,9 @@ export default async function handler(req, res) {
   } = req
 
   switch (req.method) {
+
     case 'GET':
-                pool = pool || createPool();
-                const {
-                    query: { id, name },
-                    method,
-                } = req;
+               
     
               try{
                 const builds = await getStockById(pool,id);
@@ -175,11 +172,7 @@ export default async function handler(req, res) {
       break;
       case 'PUT':
       // Update or create data in your database
-      const {
-        query: { id, name },
-        method,
-    } = req;
-
+      
       pool = pool || createPool();
       try {
           await updateStocks(pool, req.body,id);
@@ -196,11 +189,6 @@ export default async function handler(req, res) {
       break
 
       case 'DELETE':
-        const {
-          query: { id, name },
-          method,
-      } = req;
-
         pool = pool || createPool();
        
         try{
