@@ -203,7 +203,7 @@ const FocusableCell = ({ onClick, ...restProps }) => (
 
   return (<div>
    <h1>Stock Manager </h1>
-   {/* <Card>
+   <Card>
         <CardBody className="iq-card-body">
                         <Grid
                             rows={rows}
@@ -228,7 +228,7 @@ const FocusableCell = ({ onClick, ...restProps }) => (
 
                        
                     </CardBody>
-        </Card> */}
+        </Card>
   </div>
 
 
