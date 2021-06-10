@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.2",
+    "@devexpress/dx-core": "^2.7.5",
+    "@devexpress/dx-react-core": "^2.7.5",
     "@devexpress/dx-react-grid": "^2.7.5",
     "@devexpress/dx-react-grid-bootstrap4": "^2.7.5",
     "@google-cloud/logging-winston": "^4.0.5",
