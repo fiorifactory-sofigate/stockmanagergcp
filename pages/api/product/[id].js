@@ -196,7 +196,7 @@ export default async function handler(req, res) {
           
                  res
                .status(204)
-               .send(JSON.stringify(id));
+               .send('Product -'+id+" has deleted successfully");
                
         }catch (err) {
              console.error(err);
