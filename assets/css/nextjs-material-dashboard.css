@@ -79,11 +79,11 @@ small {
   font-size: 80%;
 }
 
-h1 {
+/* h1 {
   font-size: 3em;
   line-height: 1.15em;
   text-align: start;
-}
+} */
 
 h2 {
   font-size: 2.4em;
@@ -559,7 +559,7 @@ h1{
   color: #fff;
   text-transform: uppercase;
   font-weight: 300;
-  text-align: center;
+  text-align: start;
   margin-bottom: 15px;
 }
 table{
