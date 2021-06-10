@@ -139,6 +139,11 @@ const getStockById = async (pool, id) => {
 
 // Handle HTTP method calls
 export default async function handler(req, res) {
+  const {
+    query: { id, name },
+    method,
+  } = req
+
   switch (req.method) {
     case 'GET':
                 pool = pool || createPool();
