@@ -110,7 +110,7 @@ const getStockById = async (pool, id) => {
 
  const removestock = async (pool, id) => {
   try {
-    return await pool('stockentries').delete({key:'entryid'}).where('entryid',id);
+    return await pool('stockentries').delete({key:'entryid'});//.where('entryid',id);
   } catch (err) {
     throw Error(err);
   }
