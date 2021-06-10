@@ -148,7 +148,7 @@ export default async function handler(req, res) {
 
     case 'GET':
                
-    
+      pool = pool || createPool();
               try{
                 const builds = await getStockById(pool,id);
                 for (let index = 0; index < builds.length; index++) {
