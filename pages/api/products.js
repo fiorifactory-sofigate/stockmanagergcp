@@ -31,17 +31,16 @@ const Knex = require('knex');
  
  // [START cloud_sql_postgres_knex_create_socket]
  const createUnixSocketPool = config => {
-   //const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
-   const dbSocketPath = '/cloudsql';
-   // Establish a connection to the database
-   return Knex({
+  const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
+ 
+  // Establish a connection to the database
+  return Knex({
     client: 'pg',
     connection: {
-      user: 'postgres',//process.env.DB_USER, // e.g. 'my-user'
-      password: 'OadLD6lr5ikNyD3L', // e.g. 'my-user-password'
-      database: 'postgres', // e.g. 'my-database',
-      host: '/cloudsql/sandboxsg2:europe-west3:buildings'// `${dbSocketPath}/${process.env.CLOUD_SQL_CONNECTION_NAME}`,
-      
+      user: process.env.DB_USER, // e.g. 'my-user'
+      password: process.env.DB_PASS, // e.g. 'my-user-password'
+      database: process.env.DB_NAME, // e.g. 'my-database'
+      host: `${dbSocketPath}/${process.env.CLOUD_SQL_CONNECTION_NAME}`,
     },
      // ... Specify additional properties here.
      ...config,
