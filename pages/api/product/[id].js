@@ -10,43 +10,42 @@ const Knex = require('knex');
  
  // [START cloud_sql_postgres_knex_create_tcp]
  const createTcpPool = config => {
-   // Extract host and port from socket address
-   const dbSocketAddr = '';//process.env.DB_HOST.split(':'); // e.g. '127.0.0.1:5432'
- 
-   // Establish a connection to the database
-   return Knex({
-     client: 'pg',
-     connection: {
-       user: 'postgres',//process.env.DB_USER, // e.g. 'my-user'
-       password: 'OadLD6lr5ikNyD3L', // e.g. 'my-user-password'
-       database: 'postgres', // e.g. 'my-database'
-       host: '34.89.193.69', // e.g. '127.0.0.1'
-       port: '5432', // e.g. '5432'
-     },
-     // ... Specify additional properties here.
-     ...config,
-   });
- };
- // [END cloud_sql_postgres_knex_create_tcp]
- 
- // [START cloud_sql_postgres_knex_create_socket]
- const createUnixSocketPool = config => {
-   //const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
-   const dbSocketPath = '/cloudsql';
-   // Establish a connection to the database
-   return Knex({
+  // Extract host and port from socket address
+  const dbSocketAddr = process.env.DB_HOST.split(':'); // e.g. '127.0.0.1:5432'
+
+  // Establish a connection to the database
+  return Knex({
     client: 'pg',
     connection: {
-      user: 'postgres',//process.env.DB_USER, // e.g. 'my-user'
-      password: 'OadLD6lr5ikNyD3L', // e.g. 'my-user-password'
-      database: 'postgres', // e.g. 'my-database'
-      host: '34.89.193.69', // e.g. '127.0.0.1'
-      port: '5432', // e.g. '5432'
+      user: process.env.DB_USER,//process.env.DB_USER, // e.g. 'my-user'
+      password: process.env.DB_PASS, // e.g. 'my-user-password'
+      database: process.env.DB_NAME, // e.g. 'my-database'
+      host: dbSocketAddr[0], // e.g. '127.0.0.1'
+      port: dbSocketAddr[1] // e.g. '5432'
     },
-     // ... Specify additional properties here.
-     ...config,
-   });
- };
+    // ... Specify additional properties here.
+    ...config,
+  });
+};
+// [END cloud_sql_postgres_knex_create_tcp]
+
+// [START cloud_sql_postgres_knex_create_socket]
+const createUnixSocketPool = config => {
+ const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
+
+ // Establish a connection to the database
+ return Knex({
+   client: 'pg',
+   connection: {
+     user: process.env.DB_USER, // e.g. 'my-user'
+     password: process.env.DB_PASS, // e.g. 'my-user-password'
+     database: process.env.DB_NAME, // e.g. 'my-database'
+     host: `${dbSocketPath}/${process.env.CLOUD_SQL_CONNECTION_NAME}`,
+   },
+    // ... Specify additional properties here.
+    ...config,
+  });
+};
  // [END cloud_sql_postgres_knex_create_socket]
  
  // Initialize Knex, a Node.js SQL query builder library with built-in connection pooling.
