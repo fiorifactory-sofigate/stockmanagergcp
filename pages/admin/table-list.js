@@ -6,12 +6,17 @@ import Admin from "layouts/Admin.js";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import Table from "components/Table/Table.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardBody from "components/Card/CardBody.js";
+// import Table from "components/Table/Table.js";
+// import Card from "components/Card/Card.js";
+// import CardHeader from "components/Card/CardHeader.js";
+// import CardBody from "components/Card/CardBody.js";
 
 import ProgressBar from "@badrap/bar-of-progress";
+
+import { Card, CardBody, CardTitle, Col, Row } from "reactstrap";
+import axios from "axios";
+import { Grid, Table, TableHeaderRow, TableEditColumn, TableInlineCellEditing } from '@devexpress/dx-react-grid-bootstrap4';
+import { EditingState } from "@devexpress/dx-react-grid";
 
 
 const styles = {
@@ -49,7 +54,7 @@ function TableList() {
   const classes = useStyles();
   return (
     <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
+      {/* <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Simple Table</h4>
@@ -110,7 +115,7 @@ function TableList() {
             />
           </CardBody>
         </Card>
-      </GridItem>
+      </GridItem> */}
     </GridContainer>
   );
 }
