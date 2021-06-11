@@ -1,4 +1,4 @@
-name: stockmanager-gcp-cloud-run
+name: stockmanager-gcp-cloud-run-managerVNorth
 
 on:
   push:
